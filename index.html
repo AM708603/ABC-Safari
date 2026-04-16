@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AlphaZoo 🦁 Learn A-Z!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Alpha World 🌍 Learn A to Z!</title>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -25,7 +25,7 @@
     position: relative;
   }
 
-  /* Floating clouds */
+  /* Floating clouds & sun (same as before, kept for charm) */
   .cloud {
     position: fixed;
     background: white;
@@ -40,788 +40,429 @@
     background: white;
     border-radius: 50%;
   }
-  .cloud-1 { width: 120px; height: 40px; top: 8%; left: -130px; animation-duration: 28s; animation-delay: 0s; }
+  .cloud-1 { width: 120px; height: 40px; top: 8%; left: -130px; animation-duration: 28s; }
   .cloud-1::before { width: 60px; height: 60px; top: -30px; left: 15px; }
   .cloud-1::after  { width: 40px; height: 40px; top: -20px; left: 55px; }
-  .cloud-2 { width: 90px; height: 30px; top: 18%; left: -100px; animation-duration: 35s; animation-delay: -10s; }
+  .cloud-2 { width: 90px; height: 30px; top: 18%; left: -100px; animation-duration: 35s; }
   .cloud-2::before { width: 45px; height: 45px; top: -25px; left: 10px; }
-  .cloud-2::after  { width: 35px; height: 35px; top: -18px; left: 45px; }
-  .cloud-3 { width: 140px; height: 45px; top: 5%; left: -150px; animation-duration: 40s; animation-delay: -20s; }
-  .cloud-3::before { width: 70px; height: 70px; top: -38px; left: 20px; }
-  .cloud-3::after  { width: 50px; height: 50px; top: -25px; left: 70px; }
-
+  .cloud-3 { width: 140px; height: 45px; top: 5%; left: -150px; animation-duration: 40s; }
   @keyframes floatCloud {
     from { transform: translateX(0); }
     to   { transform: translateX(calc(100vw + 200px)); }
   }
-
-  /* Sun */
   .sun {
-    position: fixed;
-    top: 20px; right: 40px;
-    width: 70px; height: 70px;
-    background: radial-gradient(circle, #FFE066, #FFD93D);
-    border-radius: 50%;
-    box-shadow: 0 0 0 12px rgba(255,217,61,0.25), 0 0 0 24px rgba(255,217,61,0.12);
-    animation: sunPulse 3s ease-in-out infinite;
-    z-index: 0;
+    position: fixed; top: 20px; right: 40px; width: 70px; height: 70px;
+    background: radial-gradient(circle, #FFE066, #FFD93D); border-radius: 50%;
+    box-shadow: 0 0 0 12px rgba(255,217,61,0.25); z-index: 0;
   }
-  @keyframes sunPulse {
-    0%,100% { box-shadow: 0 0 0 12px rgba(255,217,61,0.25), 0 0 0 24px rgba(255,217,61,0.12); }
-    50%      { box-shadow: 0 0 0 18px rgba(255,217,61,0.30), 0 0 0 36px rgba(255,217,61,0.15); }
-  }
-
-  /* Stars/sparkles that appear on click */
   .sparkle {
-    position: fixed;
-    pointer-events: none;
-    font-size: 28px;
-    animation: sparkleUp 1.2s ease-out forwards;
-    z-index: 999;
+    position: fixed; pointer-events: none; font-size: 28px;
+    animation: sparkleUp 1.2s ease-out forwards; z-index: 999;
   }
   @keyframes sparkleUp {
     0%   { transform: translateY(0) scale(1); opacity: 1; }
     100% { transform: translateY(-120px) scale(0.3); opacity: 0; }
   }
-
-  /* Header */
-  header {
-    position: relative;
-    z-index: 10;
-    text-align: center;
-    padding: 28px 20px 10px;
-  }
+  header { position: relative; z-index: 10; text-align: center; padding: 28px 20px 10px; }
   .logo {
-    font-family: 'Fredoka One', cursive;
-    font-size: clamp(2.2rem, 6vw, 3.8rem);
-    color: #fff;
-    text-shadow: 0 4px 0 #F4845F, 0 6px 14px rgba(0,0,0,0.2);
-    letter-spacing: 2px;
-    display: inline-block;
-    animation: logoWobble 4s ease-in-out infinite;
+    font-family: 'Fredoka One', cursive; font-size: clamp(2rem, 6vw, 3.8rem);
+    color: #fff; text-shadow: 0 4px 0 #F4845F, 0 6px 14px rgba(0,0,0,0.2);
   }
-  @keyframes logoWobble {
-    0%,100% { transform: rotate(-1deg); }
-    50%      { transform: rotate(1deg); }
-  }
-  .tagline {
-    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
-    color: #fff;
-    font-weight: 700;
-    margin-top: 4px;
-    text-shadow: 0 2px 6px rgba(0,0,0,0.15);
-    letter-spacing: 1px;
-  }
+  .tagline { font-size: clamp(0.9rem, 2.5vw, 1.2rem); color: #fff; font-weight: 700; }
 
-  /* Alphabet tabs strip */
-  .tabs-wrapper {
-    position: relative;
-    z-index: 10;
-    padding: 14px 16px 0;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+  /* Category selector */
+  .category-bar {
+    position: relative; z-index: 10; display: flex; justify-content: center; gap: 12px;
+    padding: 10px 16px; flex-wrap: wrap;
   }
-  .tabs-wrapper::-webkit-scrollbar { display: none; }
-  .tabs {
-    display: flex;
-    gap: 8px;
-    width: max-content;
-    margin: 0 auto;
+  .cat-btn {
+    font-family: 'Fredoka One', cursive; background: rgba(255,255,255,0.3); backdrop-filter: blur(6px);
+    border: 2px solid white; border-radius: 40px; padding: 8px 18px; color: white;
+    font-size: 1rem; cursor: pointer; transition: 0.2s var(--bounce);
   }
-  .tab-btn {
-    font-family: 'Fredoka One', cursive;
-    font-size: 1.1rem;
-    width: 42px; height: 42px;
-    border-radius: 12px;
-    border: 3px solid rgba(255,255,255,0.6);
-    background: rgba(255,255,255,0.35);
-    color: #fff;
-    cursor: pointer;
-    transition: all 0.2s var(--bounce);
-    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    backdrop-filter: blur(4px);
-    flex-shrink: 0;
-  }
-  .tab-btn:hover { transform: scale(1.15) translateY(-3px); background: rgba(255,255,255,0.6); }
-  .tab-btn.active {
-    background: #fff;
-    color: #F4845F;
-    border-color: #F4845F;
-    transform: scale(1.2) translateY(-4px);
-    box-shadow: 0 6px 18px rgba(244,132,95,0.4);
-  }
-
+  .cat-btn.active { background: white; color: #F4845F; border-color: #F4845F; transform: scale(1.05); }
+  
   /* Mode switch */
   .mode-bar {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    padding: 16px 20px 4px;
+    position: relative; z-index: 10; display: flex; justify-content: center; gap: 10px; padding: 8px 20px;
   }
   .mode-btn {
-    font-family: 'Nunito', sans-serif;
-    font-weight: 900;
-    font-size: 0.85rem;
-    padding: 8px 18px;
-    border-radius: 30px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s var(--bounce);
-    letter-spacing: 0.5px;
+    font-weight: 900; font-size: 0.85rem; padding: 6px 18px; border-radius: 30px; border: none;
+    cursor: pointer; transition: all 0.2s var(--bounce);
   }
   .mode-btn.inactive { background: rgba(255,255,255,0.4); color: rgba(255,255,255,0.9); }
   .mode-btn.active   { background: #fff; color: #F4845F; box-shadow: 0 4px 14px rgba(0,0,0,0.15); transform: scale(1.05); }
 
-  /* Main stage */
-  .stage {
-    position: relative;
-    z-index: 10;
-    padding: 20px 16px 40px;
-    max-width: 900px;
-    margin: 0 auto;
+  /* Alphabet tabs */
+  .tabs-wrapper {
+    position: relative; z-index: 10; padding: 8px 16px 0; overflow-x: auto; -webkit-overflow-scrolling: touch;
   }
+  .tabs { display: flex; gap: 8px; width: max-content; margin: 0 auto; }
+  .tab-btn {
+    font-family: 'Fredoka One', cursive; font-size: 1.1rem; width: 42px; height: 42px;
+    border-radius: 12px; border: 3px solid rgba(255,255,255,0.6); background: rgba(255,255,255,0.35);
+    color: #fff; cursor: pointer; backdrop-filter: blur(4px);
+  }
+  .tab-btn.active { background: #fff; color: #F4845F; border-color: #F4845F; transform: scale(1.2); }
 
-  /* ===== SINGLE LETTER VIEW ===== */
-  .letter-view {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
+  .stage { position: relative; z-index: 10; padding: 20px 16px 40px; max-width: 900px; margin: 0 auto; }
+  
+  /* Learn view */
+  .letter-view { display: flex; flex-direction: column; align-items: center; gap: 20px; }
   .big-letter-card {
-    background: #fff;
-    border-radius: 32px;
-    padding: 28px 36px;
-    box-shadow: var(--card-shadow), 0 4px 0 #e0e0e0;
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    cursor: pointer;
-    transition: transform 0.18s var(--bounce), box-shadow 0.18s;
-    animation: slideInUp 0.4s var(--bounce) both;
-    width: 100%;
-    max-width: 480px;
+    background: #fff; border-radius: 32px; padding: 20px 30px; box-shadow: var(--card-shadow);
+    display: flex; align-items: center; gap: 24px; cursor: pointer; width: 100%; max-width: 500px;
   }
-  .big-letter-card:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 18px 48px rgba(0,0,0,0.2); }
-  .big-letter-card:active { transform: scale(0.96); }
-
-  @keyframes slideInUp {
-    from { transform: translateY(60px) scale(0.85); opacity: 0; }
-    to   { transform: translateY(0) scale(1); opacity: 1; }
-  }
-
   .letter-glyph {
-    font-family: 'Fredoka One', cursive;
-    font-size: clamp(5rem, 16vw, 9rem);
-    line-height: 1;
-    background: linear-gradient(135deg, #F4845F, #FF6B9D);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    user-select: none;
-    transition: transform 0.15s var(--bounce);
+    font-family: 'Fredoka One', cursive; font-size: clamp(4rem, 12vw, 7rem);
+    background: linear-gradient(135deg, #F4845F, #FF6B9D); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   }
-  .big-letter-card:active .letter-glyph { transform: scale(0.85) rotate(-8deg); }
-
-  .letter-info { text-align: left; flex: 1; }
-  .letter-word {
-    font-family: 'Fredoka One', cursive;
-    font-size: clamp(1.6rem, 5vw, 2.6rem);
-    color: #333;
-    line-height: 1.1;
-  }
-  .letter-subtext {
-    font-size: 0.9rem;
-    color: #888;
-    font-weight: 700;
-    margin-top: 4px;
-  }
-  .tap-hint {
-    font-size: 0.78rem;
-    color: #bbb;
-    margin-top: 8px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-weight: 700;
-  }
-
-  /* Animal emoji large display */
-  .animal-display {
-    font-size: clamp(5rem, 18vw, 9rem);
-    animation: animalBounce 0.6s var(--bounce) both;
-    cursor: pointer;
-    user-select: none;
-    filter: drop-shadow(0 8px 18px rgba(0,0,0,0.15));
-    transition: transform 0.15s var(--bounce);
-  }
-  .animal-display:hover { transform: scale(1.08) rotate(3deg); }
-  .animal-display:active { transform: scale(0.88) rotate(-8deg); }
-
-  @keyframes animalBounce {
-    0%  { transform: scale(0) rotate(-20deg); opacity: 0; }
-    60% { transform: scale(1.15) rotate(5deg); }
-    100%{ transform: scale(1) rotate(0deg); opacity: 1; }
-  }
-
+  .letter-word { font-family: 'Fredoka One', cursive; font-size: clamp(1.2rem, 4vw, 2rem); color: #333; }
+  .animal-display { font-size: clamp(5rem, 18vw, 9rem); filter: drop-shadow(0 8px 18px rgba(0,0,0,0.15)); cursor: pointer; }
   .animal-name-tag {
-    background: #fff;
-    border-radius: 20px;
-    padding: 10px 28px;
-    font-family: 'Fredoka One', cursive;
-    font-size: clamp(1.4rem, 4vw, 2rem);
-    color: #444;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
-    letter-spacing: 1px;
-    animation: fadeIn 0.3s ease both;
-    animation-delay: 0.2s;
-    opacity: 0;
-    animation-fill-mode: forwards;
+    background: #fff; border-radius: 20px; padding: 10px 28px; font-family: 'Fredoka One', cursive;
+    font-size: clamp(1.2rem, 4vw, 1.8rem); box-shadow: 0 6px 20px rgba(0,0,0,0.12);
   }
-  @keyframes fadeIn { to { opacity: 1; } }
-
   .sound-btn {
-    background: linear-gradient(135deg, #F4845F, #FF6B9D);
-    color: #fff;
-    border: none;
-    border-radius: 50px;
-    padding: 14px 36px;
-    font-family: 'Fredoka One', cursive;
-    font-size: 1.2rem;
-    cursor: pointer;
-    box-shadow: 0 6px 20px rgba(244,132,95,0.45);
-    transition: all 0.18s var(--bounce);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    animation: fadeIn 0.4s ease 0.3s both;
-    opacity: 0;
+    background: linear-gradient(135deg, #F4845F, #FF6B9D); color: #fff; border: none; border-radius: 50px;
+    padding: 12px 32px; font-family: 'Fredoka One', cursive; font-size: 1.2rem; cursor: pointer;
   }
-  .sound-btn:hover  { transform: scale(1.08) translateY(-3px); box-shadow: 0 10px 30px rgba(244,132,95,0.5); }
-  .sound-btn:active { transform: scale(0.92); }
-  .sound-btn.speaking { animation: speakPulse 0.4s ease infinite alternate; }
-  @keyframes speakPulse {
-    from { transform: scale(1); }
-    to   { transform: scale(1.06); box-shadow: 0 12px 36px rgba(244,132,95,0.7); }
-  }
-
-  /* ===== GRID VIEW ===== */
-  .grid-view {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    gap: 14px;
-    animation: fadeIn 0.3s ease both;
-  }
+  
+  /* Grid explore */
+  .grid-view { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 14px; }
   .grid-card {
-    background: #fff;
-    border-radius: 22px;
-    padding: 16px 10px;
-    text-align: center;
-    cursor: pointer;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1), 0 3px 0 #e0e0e0;
-    transition: all 0.2s var(--bounce);
-    animation: popIn 0.3s var(--bounce) both;
-    border: 3px solid transparent;
+    background: #fff; border-radius: 22px; padding: 16px 10px; text-align: center; cursor: pointer;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1); transition: 0.2s var(--bounce);
   }
-  .grid-card:nth-child(1)  { animation-delay: 0.02s; }
-  .grid-card:nth-child(2)  { animation-delay: 0.04s; }
-  .grid-card:nth-child(3)  { animation-delay: 0.06s; }
-  .grid-card:nth-child(4)  { animation-delay: 0.08s; }
-  .grid-card:nth-child(5)  { animation-delay: 0.10s; }
-  .grid-card:nth-child(6)  { animation-delay: 0.12s; }
-  .grid-card:nth-child(7)  { animation-delay: 0.14s; }
-  .grid-card:nth-child(8)  { animation-delay: 0.16s; }
-  .grid-card:nth-child(9)  { animation-delay: 0.18s; }
-  .grid-card:nth-child(10) { animation-delay: 0.20s; }
+  .grid-card:hover { transform: translateY(-6px); }
+  .grid-emoji { font-size: 2.8rem; display: block; }
+  .grid-letter { font-size: 1.6rem; font-weight: bold; background: linear-gradient(135deg, #F4845F, #FF6B9D); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .grid-name { font-size: 0.75rem; font-weight: 900; color: #666; }
 
-  @keyframes popIn {
-    from { transform: scale(0.6) translateY(20px); opacity: 0; }
-    to   { transform: scale(1) translateY(0); opacity: 1; }
-  }
-  .grid-card:hover  { transform: translateY(-8px) scale(1.04); box-shadow: 0 16px 36px rgba(0,0,0,0.18); }
-  .grid-card:active { transform: scale(0.92); }
-  .grid-card.playing { border-color: #F4845F; background: #FFF5F2; }
-
-  .grid-emoji { font-size: 2.8rem; line-height: 1; margin-bottom: 6px; display: block; }
-  .grid-letter {
-    font-family: 'Fredoka One', cursive;
-    font-size: 1.6rem;
-    background: linear-gradient(135deg, #F4845F, #FF6B9D);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    display: block;
-  }
-  .grid-name {
-    font-size: 0.72rem;
-    font-weight: 900;
-    color: #888;
-    letter-spacing: 0.5px;
-    margin-top: 2px;
-    display: block;
-    text-transform: uppercase;
-  }
-
-  /* Quiz mode */
-  .quiz-view {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    animation: fadeIn 0.3s ease both;
-  }
-  .quiz-question {
-    font-family: 'Fredoka One', cursive;
-    font-size: clamp(1.2rem, 4vw, 1.8rem);
-    color: #fff;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    text-align: center;
-  }
-  .quiz-options {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-    width: 100%;
-    max-width: 420px;
-  }
+  /* Quiz */
+  .quiz-view { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+  .quiz-question { font-family: 'Fredoka One', cursive; font-size: 1.5rem; color: white; text-align: center; }
+  .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; width: 100%; max-width: 420px; }
   .quiz-option {
-    background: #fff;
-    border: 3px solid transparent;
-    border-radius: 22px;
-    padding: 18px 10px;
-    text-align: center;
-    cursor: pointer;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-    transition: all 0.2s var(--bounce);
-    font-family: 'Fredoka One', cursive;
+    background: #fff; border-radius: 22px; padding: 15px; text-align: center; cursor: pointer;
+    transition: 0.2s; font-family: 'Fredoka One', cursive;
   }
-  .quiz-option:hover { transform: scale(1.05) translateY(-4px); }
-  .quiz-option.correct { background: #C8F5C8; border-color: #4CAF50; animation: correctBounce 0.5s var(--bounce); }
-  .quiz-option.wrong   { background: #FFE0E0; border-color: #E53935; animation: shake 0.4s ease; }
-  @keyframes correctBounce {
-    0%,100% { transform: scale(1); }
-    50%     { transform: scale(1.12); }
-  }
-  @keyframes shake {
-    0%,100% { transform: translateX(0); }
-    25%     { transform: translateX(-8px); }
-    75%     { transform: translateX(8px); }
-  }
-  .quiz-option-emoji { font-size: 2.4rem; display: block; margin-bottom: 4px; }
-  .quiz-option-letter {
-    font-size: 1rem;
-    color: #666;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 900;
-  }
-
-  .score-bar {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-  }
-  .star-score { font-size: 1.5rem; filter: grayscale(1); transition: filter 0.3s; }
-  .star-score.earned { filter: grayscale(0); animation: starPop 0.4s var(--bounce); }
-  @keyframes starPop {
-    0%  { transform: scale(0); }
-    70% { transform: scale(1.3); }
-    100%{ transform: scale(1); }
-  }
-
+  .quiz-option.correct { background: #C8F5C8; border: 3px solid #4CAF50; }
+  .quiz-option.wrong { background: #FFE0E0; border: 3px solid #E53935; }
   .next-btn {
-    background: linear-gradient(135deg, #43C6AC, #191654);
-    background: linear-gradient(135deg, #56CCF2, #2F80ED);
-    color: #fff;
-    border: none;
-    border-radius: 50px;
-    padding: 14px 40px;
-    font-family: 'Fredoka One', cursive;
-    font-size: 1.2rem;
-    cursor: pointer;
-    box-shadow: 0 6px 20px rgba(86,204,242,0.4);
-    transition: all 0.2s var(--bounce);
-    display: none;
+    background: #2F80ED; color: white; border: none; border-radius: 50px; padding: 12px 32px;
+    font-family: 'Fredoka One', cursive; font-size: 1.2rem; cursor: pointer; display: none;
   }
-  .next-btn.show { display: flex; align-items: center; gap: 8px; animation: fadeIn 0.3s ease both; }
-  .next-btn:hover { transform: scale(1.08) translateY(-3px); }
-
-  /* Mascot */
-  .mascot {
-    position: fixed;
-    bottom: 20px; right: 20px;
-    font-size: 3.5rem;
-    z-index: 50;
-    cursor: pointer;
-    animation: mascotFloat 3s ease-in-out infinite;
-    filter: drop-shadow(0 6px 14px rgba(0,0,0,0.2));
-    user-select: none;
-  }
-  @keyframes mascotFloat {
-    0%,100% { transform: translateY(0); }
-    50%      { transform: translateY(-12px); }
-  }
-  .mascot-bubble {
-    position: fixed;
-    bottom: 88px; right: 16px;
-    background: #fff;
-    border-radius: 18px 18px 4px 18px;
-    padding: 10px 16px;
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: #555;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-    max-width: 180px;
-    text-align: center;
-    z-index: 50;
-    opacity: 0;
-    transform: scale(0.8) translateY(10px);
-    transition: all 0.3s var(--bounce);
-    pointer-events: none;
-  }
-  .mascot-bubble.show { opacity: 1; transform: scale(1) translateY(0); }
-
-  /* Congrats overlay */
-  .confetti-layer {
-    position: fixed; inset: 0; pointer-events: none; z-index: 200; overflow: hidden;
-  }
-  .confetti-piece {
-    position: absolute;
-    width: 10px; height: 10px;
-    border-radius: 2px;
-    animation: confettiFall linear forwards;
-  }
-  @keyframes confettiFall {
-    0%   { transform: translateY(-20px) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
-  }
-
-  /* Responsive */
-  @media (max-width: 480px) {
-    .big-letter-card { padding: 20px 20px; gap: 16px; }
-    .grid-view { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px; }
-    .quiz-options { gap: 10px; }
-  }
+  .next-btn.show { display: block; }
+  .score-bar { font-size: 1.5rem; margin: 10px 0; }
+  .mascot { position: fixed; bottom: 20px; right: 20px; font-size: 3.5rem; cursor: pointer; z-index: 50; }
+  .confetti-layer { position: fixed; inset: 0; pointer-events: none; z-index: 200; }
 </style>
 </head>
 <body>
-
-<!-- Decorations -->
 <div class="sun"></div>
-<div class="cloud cloud-1"></div>
-<div class="cloud cloud-2"></div>
-<div class="cloud cloud-3"></div>
+<div class="cloud cloud-1"></div><div class="cloud cloud-2"></div><div class="cloud cloud-3"></div>
 
-<header>
-  <div class="logo">🦁 AlphaZoo</div>
-  <div class="tagline">Tap · Learn · Roar! 🌟</div>
-</header>
+<header><div class="logo">🌍 Alpha World</div><div class="tagline">Learn Animals, Food, Places & Things!</div></header>
 
-<!-- Mode buttons -->
+<!-- NEW: Category Tabs -->
+<div class="category-bar" id="categoryBar">
+  <button class="cat-btn active" data-cat="animals">🐘 Animals</button>
+  <button class="cat-btn" data-cat="food">🍎 Food</button>
+  <button class="cat-btn" data-cat="places">🏠 Places</button>
+  <button class="cat-btn" data-cat="things">🧸 Things</button>
+</div>
+
 <div class="mode-bar">
   <button class="mode-btn active" onclick="setMode('learn')" id="mode-learn">📖 Learn</button>
   <button class="mode-btn inactive" onclick="setMode('explore')" id="mode-explore">🔍 Explore</button>
   <button class="mode-btn inactive" onclick="setMode('quiz')" id="mode-quiz">🎮 Quiz</button>
 </div>
 
-<!-- Alphabet tabs -->
-<div class="tabs-wrapper" id="tabsWrapper">
-  <div class="tabs" id="tabs"></div>
-</div>
-
-<!-- Stage -->
+<div class="tabs-wrapper" id="tabsWrapper"><div class="tabs" id="tabs"></div></div>
 <div class="stage" id="stage"></div>
-
-<!-- Mascot -->
-<div class="mascot" id="mascot" onclick="mascotTalk()">🦊</div>
-<div class="mascot-bubble" id="mascotBubble"></div>
-
-<!-- Confetti -->
+<div class="mascot" onclick="mascotTalk()">🦊</div>
 <div class="confetti-layer" id="confettiLayer"></div>
 
 <script>
-const ALPHABET = [
-  { letter:'A', animal:'Alligator', emoji:'🐊', color:'#FF6B6B', sound:'A is for Alligator! A, A, Alligator!', phonetic:'Ayyy' },
-  { letter:'B', animal:'Bear',      emoji:'🐻', color:'#FF9F43', sound:'B is for Bear! B, B, Bear!',         phonetic:'Buh' },
-  { letter:'C', animal:'Cat',       emoji:'🐱', color:'#FECA57', sound:'C is for Cat! C, C, Cat!',           phonetic:'Kuh' },
-  { letter:'D', animal:'Dog',       emoji:'🐶', color:'#48DBFB', sound:'D is for Dog! D, D, Dog!',           phonetic:'Duh' },
-  { letter:'E', animal:'Elephant',  emoji:'🐘', color:'#FF9FF3', sound:'E is for Elephant! E, E, Elephant!', phonetic:'Ehh' },
-  { letter:'F', animal:'Fox',       emoji:'🦊', color:'#F368E0', sound:'F is for Fox! F, F, Fox!',           phonetic:'Fuh' },
-  { letter:'G', animal:'Giraffe',   emoji:'🦒', color:'#00D2D3', sound:'G is for Giraffe! G, G, Giraffe!',   phonetic:'Guh' },
-  { letter:'H', animal:'Horse',     emoji:'🐴', color:'#54A0FF', sound:'H is for Horse! H, H, Horse!',       phonetic:'Huh' },
-  { letter:'I', animal:'Iguana',    emoji:'🦎', color:'#5F27CD', sound:'I is for Iguana! I, I, Iguana!',     phonetic:'Ih' },
-  { letter:'J', animal:'Jellyfish', emoji:'🪼', color:'#00D2D3', sound:'J is for Jellyfish! J, J, Jellyfish!', phonetic:'Juh' },
-  { letter:'K', animal:'Kangaroo',  emoji:'🦘', color:'#FF6B6B', sound:'K is for Kangaroo! K, K, Kangaroo!', phonetic:'Kuh' },
-  { letter:'L', animal:'Lion',      emoji:'🦁', color:'#FFA502', sound:'L is for Lion! L, L, Lion!',         phonetic:'Luh' },
-  { letter:'M', animal:'Monkey',    emoji:'🐵', color:'#2ED573', sound:'M is for Monkey! M, M, Monkey!',     phonetic:'Muh' },
-  { letter:'N', animal:'Narwhal',   emoji:'🦄', color:'#1E90FF', sound:'N is for Narwhal! N, N, Narwhal!',   phonetic:'Nuh' },
-  { letter:'O', animal:'Octopus',   emoji:'🐙', color:'#FF6348', sound:'O is for Octopus! O, O, Octopus!',   phonetic:'Ohh' },
-  { letter:'P', animal:'Penguin',   emoji:'🐧', color:'#747D8C', sound:'P is for Penguin! P, P, Penguin!',   phonetic:'Puh' },
-  { letter:'Q', animal:'Quail',     emoji:'🐦', color:'#A29BFE', sound:'Q is for Quail! Q, Q, Quail!',       phonetic:'Kwuh' },
-  { letter:'R', animal:'Rabbit',    emoji:'🐰', color:'#FD79A8', sound:'R is for Rabbit! R, R, Rabbit!',     phonetic:'Ruh' },
-  { letter:'S', animal:'Snake',     emoji:'🐍', color:'#00B894', sound:'S is for Snake! S, S, Snake!',       phonetic:'Sss' },
-  { letter:'T', animal:'Tiger',     emoji:'🐯', color:'#E17055', sound:'T is for Tiger! T, T, Tiger!',       phonetic:'Tuh' },
-  { letter:'U', animal:'Unicorn',   emoji:'🦄', color:'#6C5CE7', sound:'U is for Unicorn! U, U, Unicorn!',   phonetic:'Uh' },
-  { letter:'V', animal:'Vulture',   emoji:'🦅', color:'#636E72', sound:'V is for Vulture! V, V, Vulture!',   phonetic:'Vuh' },
-  { letter:'W', animal:'Whale',     emoji:'🐋', color:'#0984E3', sound:'W is for Whale! W, W, Whale!',       phonetic:'Wuh' },
-  { letter:'X', animal:'X-ray Fish',emoji:'🐟', color:'#74B9FF', sound:'X is for X-ray Fish! X, X, X-ray Fish!', phonetic:'Ks' },
-  { letter:'Y', animal:'Yak',       emoji:'🐃', color:'#BADC58', sound:'Y is for Yak! Y, Y, Yak!',           phonetic:'Yuh' },
-  { letter:'Z', animal:'Zebra',     emoji:'🦓', color:'#535C68', sound:'Z is for Zebra! Z, Z, Zebra!',       phonetic:'Zuh' },
-];
+// ======================== EXPANDED VOCABULARY ==========================
+// Each category has 26 items (A-Z) for consistent tabs
+const VOCAB = {
+  animals: [
+    { letter:'A', name:'Alligator', emoji:'🐊', sound:"A is for Alligator! A A Alligator!" },
+    { letter:'B', name:'Bear', emoji:'🐻', sound:"B is for Bear! B B Bear!" },
+    { letter:'C', name:'Cat', emoji:'🐱', sound:"C is for Cat! C C Cat!" },
+    { letter:'D', name:'Dog', emoji:'🐶', sound:"D is for Dog! D D Dog!" },
+    { letter:'E', name:'Elephant', emoji:'🐘', sound:"E is for Elephant! E E Elephant!" },
+    { letter:'F', name:'Fox', emoji:'🦊', sound:"F is for Fox! F F Fox!" },
+    { letter:'G', name:'Giraffe', emoji:'🦒', sound:"G is for Giraffe! G G Giraffe!" },
+    { letter:'H', name:'Horse', emoji:'🐴', sound:"H is for Horse! H H Horse!" },
+    { letter:'I', name:'Iguana', emoji:'🦎', sound:"I is for Iguana! I I Iguana!" },
+    { letter:'J', name:'Jellyfish', emoji:'🪼', sound:"J is for Jellyfish! J J Jellyfish!" },
+    { letter:'K', name:'Kangaroo', emoji:'🦘', sound:"K is for Kangaroo! K K Kangaroo!" },
+    { letter:'L', name:'Lion', emoji:'🦁', sound:"L is for Lion! L L Lion!" },
+    { letter:'M', name:'Monkey', emoji:'🐵', sound:"M is for Monkey! M M Monkey!" },
+    { letter:'N', name:'Narwhal', emoji:'🐋', sound:"N is for Narwhal! N N Narwhal!" },
+    { letter:'O', name:'Octopus', emoji:'🐙', sound:"O is for Octopus! O O Octopus!" },
+    { letter:'P', name:'Penguin', emoji:'🐧', sound:"P is for Penguin! P P Penguin!" },
+    { letter:'Q', name:'Quail', emoji:'🐦', sound:"Q is for Quail! Q Q Quail!" },
+    { letter:'R', name:'Rabbit', emoji:'🐰', sound:"R is for Rabbit! R R Rabbit!" },
+    { letter:'S', name:'Snake', emoji:'🐍', sound:"S is for Snake! S S Snake!" },
+    { letter:'T', name:'Tiger', emoji:'🐯', sound:"T is for Tiger! T T Tiger!" },
+    { letter:'U', name:'Unicorn', emoji:'🦄', sound:"U is for Unicorn! U U Unicorn!" },
+    { letter:'V', name:'Vulture', emoji:'🦅', sound:"V is for Vulture! V V Vulture!" },
+    { letter:'W', name:'Whale', emoji:'🐳', sound:"W is for Whale! W W Whale!" },
+    { letter:'X', name:'X-ray Fish', emoji:'🐟', sound:"X is for X-ray Fish! X X X-ray Fish!" },
+    { letter:'Y', name:'Yak', emoji:'🐃', sound:"Y is for Yak! Y Y Yak!" },
+    { letter:'Z', name:'Zebra', emoji:'🦓', sound:"Z is for Zebra! Z Z Zebra!" }
+  ],
+  food: [
+    { letter:'A', name:'Apple', emoji:'🍎', sound:"A is for Apple! A A Apple!" },
+    { letter:'B', name:'Banana', emoji:'🍌', sound:"B is for Banana! B B Banana!" },
+    { letter:'C', name:'Carrot', emoji:'🥕', sound:"C is for Carrot! C C Carrot!" },
+    { letter:'D', name:'Donut', emoji:'🍩', sound:"D is for Donut! D D Donut!" },
+    { letter:'E', name:'Eggplant', emoji:'🍆', sound:"E is for Eggplant! E E Eggplant!" },
+    { letter:'F', name:'French Fries', emoji:'🍟', sound:"F is for French Fries!" },
+    { letter:'G', name:'Grapes', emoji:'🍇', sound:"G is for Grapes! G G Grapes!" },
+    { letter:'H', name:'Hamburger', emoji:'🍔', sound:"H is for Hamburger! H H Hamburger!" },
+    { letter:'I', name:'Ice Cream', emoji:'🍦', sound:"I is for Ice Cream! I I Ice Cream!" },
+    { letter:'J', name:'Jelly', emoji:'🍮', sound:"J is for Jelly! J J Jelly!" },
+    { letter:'K', name:'Kiwi', emoji:'🥝', sound:"K is for Kiwi! K K Kiwi!" },
+    { letter:'L', name:'Lemon', emoji:'🍋', sound:"L is for Lemon! L L Lemon!" },
+    { letter:'M', name:'Mango', emoji:'🥭', sound:"M is for Mango! M M Mango!" },
+    { letter:'N', name:'Noodles', emoji:'🍜', sound:"N is for Noodles! N N Noodles!" },
+    { letter:'O', name:'Orange', emoji:'🍊', sound:"O is for Orange! O O Orange!" },
+    { letter:'P', name:'Pizza', emoji:'🍕', sound:"P is for Pizza! P P Pizza!" },
+    { letter:'Q', name:'Quinoa', emoji:'🍚', sound:"Q is for Quinoa! Q Q Quinoa!" },
+    { letter:'R', name:'Raspberry', emoji:'🍓', sound:"R is for Raspberry! R R Raspberry!" },
+    { letter:'S', name:'Strawberry', emoji:'🍓', sound:"S is for Strawberry! S S Strawberry!" },
+    { letter:'T', name:'Tomato', emoji:'🍅', sound:"T is for Tomato! T T Tomato!" },
+    { letter:'U', name:'Ugli Fruit', emoji:'🍊', sound:"U is for Ugli Fruit! U U Ugli Fruit!" },
+    { letter:'V', name:'Vanilla', emoji:'🍦', sound:"V is for Vanilla! V V Vanilla!" },
+    { letter:'W', name:'Watermelon', emoji:'🍉', sound:"W is for Watermelon! W W Watermelon!" },
+    { letter:'X', name:'Ximenia', emoji:'🍎', sound:"X is for Ximenia fruit! X X Ximenia!" },
+    { letter:'Y', name:'Yogurt', emoji:'🥛', sound:"Y is for Yogurt! Y Y Yogurt!" },
+    { letter:'Z', name:'Zucchini', emoji:'🥒', sound:"Z is for Zucchini! Z Z Zucchini!" }
+  ],
+  places: [
+    { letter:'A', name:'Airport', emoji:'✈️', sound:"A is for Airport! A A Airport!" },
+    { letter:'B', name:'Beach', emoji:'🏖️', sound:"B is for Beach! B B Beach!" },
+    { letter:'C', name:'Castle', emoji:'🏰', sound:"C is for Castle! C C Castle!" },
+    { letter:'D', name:'Desert', emoji:'🏜️', sound:"D is for Desert! D D Desert!" },
+    { letter:'E', name:'Earth', emoji:'🌍', sound:"E is for Earth! E E Earth!" },
+    { letter:'F', name:'Farm', emoji:'🚜', sound:"F is for Farm! F F Farm!" },
+    { letter:'G', name:'Garden', emoji:'🌸', sound:"G is for Garden! G G Garden!" },
+    { letter:'H', name:'Hospital', emoji:'🏥', sound:"H is for Hospital! H H Hospital!" },
+    { letter:'I', name:'Island', emoji:'🏝️', sound:"I is for Island! I I Island!" },
+    { letter:'J', name:'Jungle', emoji:'🌴', sound:"J is for Jungle! J J Jungle!" },
+    { letter:'K', name:'Kitchen', emoji:'🍳', sound:"K is for Kitchen! K K Kitchen!" },
+    { letter:'L', name:'Library', emoji:'📚', sound:"L is for Library! L L Library!" },
+    { letter:'M', name:'Museum', emoji:'🏛️', sound:"M is for Museum! M M Museum!" },
+    { letter:'N', name:'Nursery', emoji:'🌱', sound:"N is for Nursery! N N Nursery!" },
+    { letter:'O', name:'Ocean', emoji:'🌊', sound:"O is for Ocean! O O Ocean!" },
+    { letter:'P', name:'Park', emoji:'🌳', sound:"P is for Park! P P Park!" },
+    { letter:'Q', name:'Quarry', emoji:'⛰️', sound:"Q is for Quarry! Q Q Quarry!" },
+    { letter:'R', name:'Restaurant', emoji:'🍽️', sound:"R is for Restaurant! R R Restaurant!" },
+    { letter:'S', name:'School', emoji:'🏫', sound:"S is for School! S S School!" },
+    { letter:'T', name:'Theatre', emoji:'🎭', sound:"T is for Theatre! T T Theatre!" },
+    { letter:'U', name:'University', emoji:'🎓', sound:"U is for University! U U University!" },
+    { letter:'V', name:'Village', emoji:'🏡', sound:"V is for Village! V V Village!" },
+    { letter:'W', name:'Waterpark', emoji:'🏊', sound:"W is for Waterpark! W W Waterpark!" },
+    { letter:'X', name:'Xylarium', emoji:'🌲', sound:"X is for Xylarium (forest museum)!" },
+    { letter:'Y', name:'Yard', emoji:'🌿', sound:"Y is for Yard! Y Y Yard!" },
+    { letter:'Z', name:'Zoo', emoji:'🐘', sound:"Z is for Zoo! Z Z Zoo!" }
+  ],
+  things: [
+    { letter:'A', name:'Airplane', emoji:'✈️', sound:"A is for Airplane! A A Airplane!" },
+    { letter:'B', name:'Balloon', emoji:'🎈', sound:"B is for Balloon! B B Balloon!" },
+    { letter:'C', name:'Clock', emoji:'⏰', sound:"C is for Clock! C C Clock!" },
+    { letter:'D', name:'Doll', emoji:'🎎', sound:"D is for Doll! D D Doll!" },
+    { letter:'E', name:'Eraser', emoji:'✏️', sound:"E is for Eraser! E E Eraser!" },
+    { letter:'F', name:'Flower', emoji:'🌻', sound:"F is for Flower! F F Flower!" },
+    { letter:'G', name:'Guitar', emoji:'🎸', sound:"G is for Guitar! G G Guitar!" },
+    { letter:'H', name:'Hat', emoji:'🧢', sound:"H is for Hat! H H Hat!" },
+    { letter:'I', name:'Ice', emoji:'❄️', sound:"I is for Ice! I I Ice!" },
+    { letter:'J', name:'Jacket', emoji:'🧥', sound:"J is for Jacket! J J Jacket!" },
+    { letter:'K', name:'Kite', emoji:'🪁', sound:"K is for Kite! K K Kite!" },
+    { letter:'L', name:'Lamp', emoji:'💡', sound:"L is for Lamp! L L Lamp!" },
+    { letter:'M', name:'Moon', emoji:'🌙', sound:"M is for Moon! M M Moon!" },
+    { letter:'N', name:'Nest', emoji:'🪹', sound:"N is for Nest! N N Nest!" },
+    { letter:'O', name:'Octopus Toy', emoji:'🐙', sound:"O is for Octopus toy! O O Octopus!" },
+    { letter:'P', name:'Pencil', emoji:'✏️', sound:"P is for Pencil! P P Pencil!" },
+    { letter:'Q', name:'Queen', emoji:'👸', sound:"Q is for Queen! Q Q Queen!" },
+    { letter:'R', name:'Robot', emoji:'🤖', sound:"R is for Robot! R R Robot!" },
+    { letter:'S', name:'Star', emoji:'⭐', sound:"S is for Star! S S Star!" },
+    { letter:'T', name:'Train', emoji:'🚂', sound:"T is for Train! T T Train!" },
+    { letter:'U', name:'Umbrella', emoji:'☂️', sound:"U is for Umbrella! U U Umbrella!" },
+    { letter:'V', name:'Violin', emoji:'🎻', sound:"V is for Violin! V V Violin!" },
+    { letter:'W', name:'Watch', emoji:'⌚', sound:"W is for Watch! W W Watch!" },
+    { letter:'X', name:'Xylophone', emoji:'🎹', sound:"X is for Xylophone! X X Xylophone!" },
+    { letter:'Y', name:'Yarn', emoji:'🧶', sound:"Y is for Yarn! Y Y Yarn!" },
+    { letter:'Z', name:'Zipper', emoji:'🤐', sound:"Z is for Zipper! Z Z Zipper!" }
+  ]
+};
 
+let currentCategory = 'animals';
 let currentIdx = 0;
 let currentMode = 'learn';
-let quizState = { score: 0, answered: false, current: null, options: [] };
+let quizState = { score: 0, answered: false, correctIdx: null, options: [] };
 const synth = window.speechSynthesis;
 
-// ── TABS ──────────────────────────────────────────────────────────────────────
+// Helper: get current data array
+function getData() { return VOCAB[currentCategory]; }
+
+// Build alphabet tabs based on current category
 function buildTabs() {
-  const tabs = document.getElementById('tabs');
-  tabs.innerHTML = '';
-  ALPHABET.forEach((item, i) => {
+  const data = getData();
+  const tabsDiv = document.getElementById('tabs');
+  tabsDiv.innerHTML = '';
+  data.forEach((item, i) => {
     const btn = document.createElement('button');
     btn.className = 'tab-btn' + (i === currentIdx ? ' active' : '');
     btn.textContent = item.letter;
-    btn.onclick = () => selectLetter(i);
-    tabs.appendChild(btn);
+    btn.onclick = () => { currentIdx = i; updateTabs(); if(currentMode !== 'quiz') renderCurrentView(); };
+    tabsDiv.appendChild(btn);
   });
 }
-
 function updateTabs() {
   document.querySelectorAll('.tab-btn').forEach((b, i) => {
     b.classList.toggle('active', i === currentIdx);
-    if (i === currentIdx) b.scrollIntoView({ behavior:'smooth', inline:'center', block:'nearest' });
+    if (i === currentIdx) b.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
   });
 }
 
-function selectLetter(idx) {
-  currentIdx = idx;
-  updateTabs();
-  if (currentMode === 'learn')   renderLearn();
+// Category switching
+function setCategory(cat) {
+  currentCategory = cat;
+  currentIdx = 0;
+  document.querySelectorAll('.cat-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.cat === cat);
+  });
+  buildTabs();
+  if (currentMode !== 'quiz') renderCurrentView();
+  else renderQuiz(); // reset quiz on category change
+}
+
+// Render based on mode
+function renderCurrentView() {
+  if (currentMode === 'learn') renderLearn();
   else if (currentMode === 'explore') renderExplore();
 }
 
-// ── MODES ─────────────────────────────────────────────────────────────────────
-function setMode(mode) {
-  currentMode = mode;
-  ['learn','explore','quiz'].forEach(m => {
-    document.getElementById('mode-'+m).className = 'mode-btn ' + (m===mode?'active':'inactive');
-  });
-  const tabsWrapper = document.getElementById('tabsWrapper');
-  tabsWrapper.style.display = mode === 'quiz' ? 'none' : 'block';
-  if (mode === 'learn')   renderLearn();
-  if (mode === 'explore') renderExplore();
-  if (mode === 'quiz')    renderQuiz();
-}
-
-// ── LEARN MODE ────────────────────────────────────────────────────────────────
+// LEARN MODE
 function renderLearn() {
-  const item = ALPHABET[currentIdx];
+  const item = getData()[currentIdx];
   const stage = document.getElementById('stage');
   stage.innerHTML = `
     <div class="letter-view">
-      <div class="big-letter-card" onclick="speakFull(${currentIdx})" id="mainCard">
+      <div class="big-letter-card" onclick="speakFull()">
         <div class="letter-glyph">${item.letter}</div>
-        <div class="letter-info">
-          <div class="letter-word">${item.letter} for ${item.animal}</div>
-          <div class="letter-subtext">Say: "${item.phonetic}"</div>
-          <div class="tap-hint">👆 Tap me!</div>
-        </div>
+        <div class="letter-info"><div class="letter-word">${item.letter} for ${item.name}</div></div>
       </div>
-      <div class="animal-display" id="animalEmoji" onclick="speakAnimal(${currentIdx})">${item.emoji}</div>
-      <div class="animal-name-tag">${item.animal}</div>
-      <button class="sound-btn" id="soundBtn" onclick="speakFull(${currentIdx})">
-        🔊 Hear it!
-      </button>
+      <div class="animal-display" onclick="speakItem()">${item.emoji}</div>
+      <div class="animal-name-tag">${item.name}</div>
+      <button class="sound-btn" onclick="speakFull()">🔊 Hear it!</button>
     </div>
   `;
-  // Auto-speak after short delay
-  setTimeout(() => speakFull(currentIdx), 500);
+  setTimeout(() => speakFull(), 400);
 }
+function speakFull() { speak(getData()[currentIdx].sound); spawnSparkles(); }
+function speakItem() { speak(getData()[currentIdx].name); spawnSparkles(); }
 
-function speakFull(idx) {
-  const item = ALPHABET[idx];
-  speak(item.sound);
-  const btn = document.getElementById('soundBtn');
-  if (btn) { btn.classList.add('speaking'); setTimeout(()=>btn.classList.remove('speaking'), 2000); }
-  spawnSparkles();
-}
-function speakAnimal(idx) {
-  speak(ALPHABET[idx].animal);
-  spawnSparkles();
-}
-
-// ── EXPLORE MODE (A-Z grid) ───────────────────────────────────────────────────
+// EXPLORE MODE (Grid)
 function renderExplore() {
+  const data = getData();
   const stage = document.getElementById('stage');
   stage.innerHTML = `<div class="grid-view" id="gridView"></div>`;
   const grid = document.getElementById('gridView');
-  ALPHABET.forEach((item, i) => {
+  data.forEach((item, i) => {
     const card = document.createElement('div');
     card.className = 'grid-card';
-    card.id = 'gc-'+i;
-    card.innerHTML = `
-      <span class="grid-emoji">${item.emoji}</span>
-      <span class="grid-letter">${item.letter}</span>
-      <span class="grid-name">${item.animal}</span>
-    `;
-    card.onclick = () => {
-      document.querySelectorAll('.grid-card').forEach(c=>c.classList.remove('playing'));
-      card.classList.add('playing');
-      speak(item.sound);
-      spawnSparkles();
-      setTimeout(()=>card.classList.remove('playing'), 2200);
-    };
+    card.innerHTML = `<span class="grid-emoji">${item.emoji}</span>
+                      <span class="grid-letter">${item.letter}</span>
+                      <span class="grid-name">${item.name}</span>`;
+    card.onclick = () => { speak(item.sound); spawnSparkles(); };
     grid.appendChild(card);
   });
 }
 
-// ── QUIZ MODE ─────────────────────────────────────────────────────────────────
+// QUIZ MODE
 function renderQuiz() {
-  // Pick random correct answer
+  const data = getData();
   const correctIdx = Math.floor(Math.random() * 26);
-  const correct = ALPHABET[correctIdx];
-  // Pick 3 wrong answers
+  const correct = data[correctIdx];
   let wrongIndices = [];
   while (wrongIndices.length < 3) {
-    const r = Math.floor(Math.random() * 26);
+    let r = Math.floor(Math.random() * 26);
     if (r !== correctIdx && !wrongIndices.includes(r)) wrongIndices.push(r);
   }
-  // Shuffle options
-  const options = [correctIdx, ...wrongIndices].sort(() => Math.random()-0.5);
-  quizState = { score: quizState.score, answered: false, correctIdx, options };
-
-  const stars = '⭐'.repeat(Math.min(quizState.score, 5)) + (quizState.score < 5 ? '☆'.repeat(5 - Math.min(quizState.score, 5)) : '');
+  const options = [correctIdx, ...wrongIndices].sort(() => Math.random() - 0.5);
+  quizState = { score: quizState.score || 0, answered: false, correctIdx, options };
+  
+  const stars = '⭐'.repeat(Math.min(quizState.score,5)) + '☆'.repeat(5 - Math.min(quizState.score,5));
   const stage = document.getElementById('stage');
   stage.innerHTML = `
     <div class="quiz-view">
-      <div class="score-bar" id="scoreBar">${buildStars()}</div>
-      <div class="quiz-question">Which animal starts with the letter<br><span style="font-size:3rem;background:linear-gradient(135deg,#F4845F,#FF6B9D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">${correct.letter}</span> ?</div>
+      <div class="score-bar">${stars}</div>
+      <div class="quiz-question">Which word starts with the letter <span style="font-size:3rem;background:linear-gradient(135deg,#F4845F,#FF6B9D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">${correct.letter}</span>?</div>
       <div class="quiz-options" id="quizOptions">
-        ${options.map(idx => `
-          <div class="quiz-option" id="qo-${idx}" onclick="answerQuiz(${idx})">
-            <span class="quiz-option-emoji">${ALPHABET[idx].emoji}</span>
-            <span class="quiz-option-letter">${ALPHABET[idx].animal}</span>
-          </div>
-        `).join('')}
+        ${options.map(idx => `<div class="quiz-option" onclick="answerQuiz(${idx})"><span class="quiz-option-emoji">${data[idx].emoji}</span><br>${data[idx].name}</div>`).join('')}
       </div>
       <button class="next-btn" id="nextBtn" onclick="renderQuiz()">Next ➡️</button>
     </div>
   `;
-  // speak question
-  setTimeout(() => speak(`Which animal starts with the letter ${correct.letter}?`), 300);
+  setTimeout(() => speak(`Which word starts with the letter ${correct.letter}?`), 300);
 }
-
-function buildStars() {
-  let h = '';
-  for (let i=0;i<5;i++) {
-    h += `<span class="star-score${i < quizState.score ? ' earned':''}" id="star${i}">${i < quizState.score ? '⭐':'☆'}</span>`;
-  }
-  return h;
-}
-
-function answerQuiz(idx) {
+function answerQuiz(selectedIdx) {
   if (quizState.answered) return;
   quizState.answered = true;
-  const correct = idx === quizState.correctIdx;
-  document.getElementById('qo-'+idx).classList.add(correct ? 'correct' : 'wrong');
-  if (correct) {
+  const data = getData();
+  const isCorrect = (selectedIdx === quizState.correctIdx);
+  const targetDiv = document.querySelector(`.quiz-option[onclick="answerQuiz(${selectedIdx})"]`);
+  if (isCorrect) {
     quizState.score = Math.min(quizState.score + 1, 5);
-    speak('Yay! Correct! Great job!');
-    spawnSparkles(); spawnConfetti();
+    targetDiv.classList.add('correct');
+    speak("Yay! Correct! Great job!");
+    spawnConfetti();
   } else {
-    document.getElementById('qo-'+quizState.correctIdx).classList.add('correct');
-    speak('Oops! That is ' + ALPHABET[quizState.correctIdx].animal + '! Try again!');
     quizState.score = Math.max(quizState.score - 1, 0);
+    targetDiv.classList.add('wrong');
+    const correctDiv = document.querySelector(`.quiz-option[onclick="answerQuiz(${quizState.correctIdx})"]`);
+    if(correctDiv) correctDiv.classList.add('correct');
+    speak(`Oops! That is ${data[quizState.correctIdx].name}! Try again!`);
   }
   document.getElementById('nextBtn').classList.add('show');
-  document.getElementById('scoreBar').innerHTML = buildStars();
+  const stars = '⭐'.repeat(Math.min(quizState.score,5)) + '☆'.repeat(5 - Math.min(quizState.score,5));
+  document.querySelector('.score-bar').innerHTML = stars;
 }
 
-// ── SPEECH ────────────────────────────────────────────────────────────────────
-function speak(text) {
-  if (!synth) return;
-  synth.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  u.rate = 0.82;
-  u.pitch = 1.3;
-  u.volume = 1;
-  // Try to pick a friendly voice
-  const voices = synth.getVoices();
-  const preferred = voices.find(v => /female|girl|zira|samantha|karen|moira|tessa|fiona/i.test(v.name))
-                 || voices.find(v => v.lang.startsWith('en'))
-                 || voices[0];
-  if (preferred) u.voice = preferred;
-  synth.speak(u);
+// Helper functions
+function setMode(mode) {
+  currentMode = mode;
+  document.querySelectorAll('.mode-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.id === `mode-${mode}`);
+    btn.classList.toggle('inactive', btn.id !== `mode-${mode}`);
+  });
+  document.getElementById('tabsWrapper').style.display = mode === 'quiz' ? 'none' : 'block';
+  if (mode === 'quiz') renderQuiz();
+  else renderCurrentView();
 }
-// voices load async
-window.speechSynthesis.onvoiceschanged = () => {};
+function speak(text) { if(synth){ synth.cancel(); let u = new SpeechSynthesisUtterance(text); u.rate=0.85; u.pitch=1.2; synth.speak(u); } }
+function spawnSparkles() { for(let i=0;i<5;i++){ let el=document.createElement('div'); el.className='sparkle'; el.textContent=['⭐','✨','🌟','🎉'][Math.floor(Math.random()*4)]; el.style.left=Math.random()*80+'vw'; el.style.top=Math.random()*60+'vh'; document.body.appendChild(el); setTimeout(()=>el.remove(),1500); } }
+function spawnConfetti() { const layer=document.getElementById('confettiLayer'); for(let i=0;i<40;i++){ let p=document.createElement('div'); p.className='confetti-piece'; p.style.position='absolute'; p.style.width='8px'; p.style.height='8px'; p.style.background=['#FF6B6B','#FFD93D','#6BCB77'][Math.floor(Math.random()*3)]; p.style.left=Math.random()*100+'vw'; p.style.animation=`confettiFall ${1+Math.random()*2}s linear forwards`; p.style.top='-10px'; layer.appendChild(p); setTimeout(()=>p.remove(),3000); } }
+function mascotTalk() { const lines=["Tap any tile to hear it! 🎤","You're doing amazing! 🌟","Keep learning new words!","Try Quiz mode!"]; speak(lines[Math.floor(Math.random()*lines.length)]); }
 
-// ── FX ────────────────────────────────────────────────────────────────────────
-function spawnSparkles() {
-  const emojis = ['⭐','✨','🌟','💫','🎉','❤️','🎈'];
-  for (let i=0;i<5;i++) {
-    const el = document.createElement('div');
-    el.className = 'sparkle';
-    el.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-    el.style.left = (20+Math.random()*60)+'vw';
-    el.style.top  = (30+Math.random()*40)+'vh';
-    el.style.animationDelay = (Math.random()*0.4)+'s';
-    document.body.appendChild(el);
-    setTimeout(()=>el.remove(), 1600);
-  }
-}
+// Add confetti animation keyframe
+const styleSheet = document.createElement("style");
+styleSheet.textContent = `@keyframes confettiFall { 0% { transform: translateY(0) rotate(0deg); opacity:1; } 100% { transform: translateY(100vh) rotate(720deg); opacity:0; } }`;
+document.head.appendChild(styleSheet);
 
-function spawnConfetti() {
-  const layer = document.getElementById('confettiLayer');
-  const colors = ['#FF6B6B','#FFD93D','#6BCB77','#4D96FF','#FF6BC8','#FF9F43'];
-  for (let i=0;i<40;i++) {
-    const p = document.createElement('div');
-    p.className = 'confetti-piece';
-    p.style.left = Math.random()*100+'vw';
-    p.style.background = colors[Math.floor(Math.random()*colors.length)];
-    p.style.animationDuration = (1.5+Math.random()*2)+'s';
-    p.style.animationDelay = (Math.random()*0.8)+'s';
-    p.style.borderRadius = Math.random()>0.5?'50%':'2px';
-    layer.appendChild(p);
-    setTimeout(()=>p.remove(), 3500);
-  }
-}
-
-// ── MASCOT ────────────────────────────────────────────────────────────────────
-const mascotLines = [
-  "Tap any animal to hear its name! 🦁",
-  "Great job learning! Keep going! 🎉",
-  "Can you say the letter out loud? 📢",
-  "Try Quiz mode to test yourself! 🎮",
-  "You're a superstar learner! ⭐",
-  "Explore all 26 animals! 🌍",
-  "Learning is so much FUN! 🎈",
-];
-let mascotTimer;
-function mascotTalk() {
-  const bubble = document.getElementById('mascotBubble');
-  const line = mascotLines[Math.floor(Math.random()*mascotLines.length)];
-  bubble.textContent = line;
-  bubble.classList.add('show');
-  speak(line.replace(/[^\w\s!]/g,''));
-  clearTimeout(mascotTimer);
-  mascotTimer = setTimeout(()=>bubble.classList.remove('show'), 4000);
-}
-setTimeout(()=>mascotTalk(), 2000);
-
-// ── KEYBOARD SUPPORT ──────────────────────────────────────────────────────────
-document.addEventListener('keydown', e => {
-  if (currentMode === 'quiz') return;
-  if (e.key === 'ArrowRight') selectLetter((currentIdx+1)%26);
-  if (e.key === 'ArrowLeft')  selectLetter((currentIdx+25)%26);
-  const idx = ALPHABET.findIndex(a=>a.letter===e.key.toUpperCase());
-  if (idx>=0) selectLetter(idx);
+// Event listeners for category
+document.querySelectorAll('.cat-btn').forEach(btn => {
+  btn.addEventListener('click', () => setCategory(btn.dataset.cat));
 });
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
+// Initialize
 buildTabs();
 renderLearn();
 </script>
